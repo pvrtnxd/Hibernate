@@ -1,21 +1,32 @@
-import DAO.EmployeeDAO;
 import DAO.Impl.EmployeeDAOImpl;
 import model.Employee;
 
 public class Application {
-    private static final EmployeeDAO EMPLOYEE_DAO = new EmployeeDAOImpl();
-
     public static void main(String[] args) {
-        Employee employee1 = new Employee("Amogus", "Abigus", "Male", 36, 4);
-        EMPLOYEE_DAO.create(employee1);
+        task1();
+    }
+    public static void task1() {
+        EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+        employeeDAO.create(new Employee("Anton", "Lenin", "Male", 40, 4));
 
-        System.out.println(EMPLOYEE_DAO.readById(9));
+        System.out.println("Проверка 1");
+        employeeDAO.readAll().forEach(System.out::println);
+        System.out.println();
 
-        EMPLOYEE_DAO.readAll().forEach(System.out::println);
+        System.out.println("Проверка 2");
+        Employee employee = employeeDAO.readById(2);
+        System.out.println(employee);
 
-        Employee employee1Updated = new Employee(9, "Abigus", "Amogus", "Female", 20, 4);
-        EMPLOYEE_DAO.update(employee1Updated);
+        employee.setFirstName("Maksim");
+        employeeDAO.update(employee);
 
-        EMPLOYEE_DAO.delete(employee1Updated);
+        System.out.println("Проверка 3");
+        System.out.println(employeeDAO.readById(3));
+
+        employeeDAO.delete(employee);
+        employeeDAO.readAll().forEach(System.out::println);
+
     }
 }
+
+
