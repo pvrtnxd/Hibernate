@@ -1,4 +1,6 @@
+import DAO.Impl.CityDAOImpl;
 import DAO.Impl.EmployeeDAOImpl;
+import model.City;
 import model.Employee;
 
 public class Application {
@@ -7,7 +9,20 @@ public class Application {
     }
     public static void task1() {
         EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
-        employeeDAO.create(new Employee("Anton", "Lenin", "Male", 40, 4));
+        CityDAOImpl cityDAO = new CityDAOImpl();
+
+        City msk = new City(null, "Moscow", null);
+        cityDAO.create(msk);
+        employeeDAO.create(new Employee("Anton", "Lenin", "Male", 40, msk ));
+
+        employeeDAO.readAll().forEach(employee -> System.out.printf("%s %s City: %s\n",employee.getFirstName(),
+                employee.getLastName(), employee.getCity().getName()));
+
+        cityDAO.readAll().forEach(city -> {
+            System.out.println(city);
+            city.getEmployees().forEach(System.out::println);
+        });
+
 
         System.out.println("Проверка 1");
         employeeDAO.readAll().forEach(System.out::println);

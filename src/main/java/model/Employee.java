@@ -24,14 +24,27 @@ public class Employee {
     private String gender;
     @Column(name = "age")
     private Integer age;
-    @Column(name = "city_id")
-    private Integer cityId;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 
-    public Employee(String firstName, String lastName, String gender, Integer age, Integer cityId) {
+    public Employee(String firstName, String lastName, String gender, Integer age, City city) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.age = age;
-        this.cityId = cityId;
+        this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", age=" + age +
+                ", city=" + (city) +
+                '}';
     }
 }
